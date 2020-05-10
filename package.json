@@ -1,0 +1,19 @@
+{
+  "name": "wad2json",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "git@github.com:doom2network/wad2json.git",
+  "author": "devnoot <devnoot@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsc && node dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.5",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "doom-wad": "^0.0.3"
+  }
+}
