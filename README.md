@@ -33,4 +33,4 @@ JSON_PATH=/path/to/save/jsons \
 yarn start
 ```
 
-![wad2json at work](https://github.com/doom2network/wad2json/master/assets/screenshot.png)
+![wad2json at work](https://raw.githubusercontent.com/doom2network/wad2json/master/assets/screenshot.png)
