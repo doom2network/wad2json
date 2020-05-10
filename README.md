@@ -33,4 +33,7 @@ JSON_PATH=/path/to/save/jsons \
 yarn start
 ```
 
-![wad2json at work](https://raw.githubusercontent.com/doom2network/wad2json/master/assets/screenshot.png)
+Once complete, you will be presented with a list of the created files
+
+<img src="https://github.com/doom2network/wad2json/blob/master/assets/screenshot-dark.png?raw=true" width='50%' alt="wad2json at work" />
+
