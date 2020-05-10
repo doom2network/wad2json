@@ -23,6 +23,16 @@ Each json object has the following keys
 
 See the [doom-wad](https://github.com/nrkn/doom-wad) and [nlump](https://github.com/nrkn/nlump) for more information
 
+## Installation
+
+This project has been built and tested with `yarn`, though it *should* run with `npm` as well.
+
+```
+git clone https://github.com/doom2network/wad2json.git
+cd wad2json
+yarn install
+```
+
 ## Usage
 
 Make sure you have `WAD_PATH` and `JSON_PATH` set in your environment before running.
