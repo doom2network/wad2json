@@ -80,7 +80,7 @@ async function runner
             if (errors.length === errorThreshhold) 
             {
                 // stop the program
-                console.error("Reached error threshold. Halting scan.")
+                console.error('Reached error threshold. Halting scan.')
                 process.exit()
             }
 
@@ -96,9 +96,9 @@ async function runner
             await writeWadJsonToDisk(`${outputDir}/${wadName}.json`, json);
             const end = performance.now()
             const dt = end - start
-            console.log("");
+            console.log('');
             console.log(`✨Finished in ${(dt / 1000).toFixed(2)}s✨`)
-            console.log("");
+            console.log('');
 
         } 
         catch (error) 
