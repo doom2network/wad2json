@@ -58,11 +58,6 @@ async function runner(wadsList: string[], outputDir: string, errorThreshhold: nu
 
         try {
 
-            console.info(`
-                error threshold: ${errorThreshhold} ${typeof errorThreshhold}
-                errors: ${errors.length} ${typeof errors.length}
-            `)
-
             if (errors.length === errorThreshhold) {
                 // stop the program
                 console.error("Reached error threshold. Halting scan.")
@@ -82,7 +77,7 @@ async function runner(wadsList: string[], outputDir: string, errorThreshhold: nu
             console.log("");
 
         } catch (error) {
-            Fs.appendFileSync(errorLogPath, `${Date.now()} ${error}\n`)
+            Fs.appendFileSync(errorLogPath, `${Date.now()},${wadPath},${error}\n`)
             errors.push(error);
             console.error(error);
         }
@@ -137,6 +132,7 @@ function main(args: any):void {
         throw new Error('JSON_PATH is missing from environment See README.md for usage instructions')
     }
 
+    console.log(`Looking for wads in ${wadPath}. This may take a moment.. Here's a 🍺 while you wait`)
     const wads = readWadsFromDir(wadPath);
     console.log(`Found ${wads.length} wads!`);
 
