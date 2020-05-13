@@ -143,7 +143,7 @@ async function writeWadJsonToDisk
 ): Promise<string> 
 {
     return new Promise((resolve, reject) => {
-        Fs.writeJson(outPath, data, (error) => {
+        Fs.writeJson(outPath, data, { flag: 'wx' }, (error) => {
             if (error) 
             {
                 reject(error);

@@ -5,7 +5,7 @@ wad2json is a tool that parses wad files and outputs a JSON representation of it
 
 ## Description
 
-wad2json will get wads from a directory, parse them into json, then output the json to disk
+wad2json will crawl a directory for wads, parse them into json, then output the json to disk
 
 Each json object has the following keys
 ```
@@ -43,7 +43,14 @@ JSON_PATH=/path/to/save/jsons \
 yarn start
 ```
 
-Once complete, you will be presented with a list of the created files
+You can additionally add `ERROR_THRESHOLD` to your environment to exit the process if it's hit.
 
-<img src="https://github.com/doom2network/wad2json/blob/master/assets/screenshot-dark.png?raw=true" width='50%' alt="wad2json at work" />
+
+## Extra
+
+If you have a lot of wads, it is possible that node may run out of memory. You can run the process directly, and allocate more memory to the node process like this:
+
+```
+node --max-old-space-size=8192 .\dist\index.js
+```
 
