@@ -1,7 +1,8 @@
-import Parser from "doom-wad";
-import Fs from "fs-extra";
-import Path from "path";
-import { performance } from "perf_hooks";
+import Parser from 'doom-wad';
+import Fs from 'fs-extra';
+import Path from 'path';
+import { performance } from 'perf_hooks';
+import Clear from 'clear'
 
 const now = Date.now()
 const errorLogPath = Path.resolve(__dirname, '..', 'logs', `error-${now}.log`)
@@ -13,27 +14,37 @@ const errorLogPath = Path.resolve(__dirname, '..', 'logs', `error-${now}.log`)
  * @param result
  * @param regex
  */
-function readWadsFromDir(
+function readWadsFromDir
+(
     dir: string,
     files?: any,
     result?: any,
     regex?: any
-): string[] {
+): string[] 
+{
     files = files || Fs.readdirSync(dir);
     result = result || [];
     regex = regex || /^.*\.wad/i;
 
-    for (let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) 
+    {
         let file = Path.join(dir, files[i]);
 
-        if (Fs.statSync(file).isDirectory()) {
-            try {
+        if (Fs.statSync(file).isDirectory()) 
+        {
+            try 
+            {
                 result = readWadsFromDir(file, Fs.readdirSync(file), result, regex);
-            } catch (error) {
+            } 
+            catch (error) 
+            {
                 continue;
             }
-        } else {
-            if (regex.test(file)) {
+        } 
+        else 
+        {
+            if (regex.test(file)) 
+            {
                 result.push(file);
             }
         }
@@ -49,25 +60,38 @@ function readWadsFromDir(
  * @param errorThreshhold
  */
 
-async function runner(wadsList: string[], outputDir: string, errorThreshhold: number) {
+async function runner
+(
+    wadsList: string[], 
+    outputDir: string, 
+    errorThreshhold: number
+) 
+{
     const errors = [];
 
-    for (const wadPath of wadsList) {
+    for (const wadPath of wadsList) 
+    {
 
         const start = performance.now()
 
-        try {
+        try 
+        {
 
-            if (errors.length === errorThreshhold) {
+            if (errors.length === errorThreshhold) 
+            {
                 // stop the program
                 console.error("Reached error threshold. Halting scan.")
                 process.exit()
             }
 
+            Clear()
+
             console.log(`💽  Building JSON for ${wadPath}`);
             console.log(`Errors: ${errors.length}`);
+
             const json = await parseWadToJSON(wadPath);
             const wadName = Path.basename(wadPath);
+
             console.log('Writing JSONs to disk...')
             await writeWadJsonToDisk(`${outputDir}/${wadName}.json`, json);
             const end = performance.now()
@@ -76,7 +100,9 @@ async function runner(wadsList: string[], outputDir: string, errorThreshhold: nu
             console.log(`✨Finished in ${(dt / 1000).toFixed(2)}s✨`)
             console.log("");
 
-        } catch (error) {
+        } 
+        catch (error) 
+        {
             Fs.appendFileSync(errorLogPath, `${Date.now()},${wadPath},${error}\n`)
             errors.push(error);
             console.error(error);
@@ -89,13 +115,17 @@ async function runner(wadsList: string[], outputDir: string, errorThreshhold: nu
  * then returns that data as JSON
  * @param wadpath
  */
-async function parseWadToJSON(wadpath: string): Promise<any> {
+async function parseWadToJSON(wadpath: string): Promise<any> 
+{
     return new Promise((resolve, reject) => {
-        try {
+        try 
+        {
             const buffer = Fs.readFileSync(wadpath);
             const wadData = Parser(buffer);
             resolve(wadData);
-        } catch (error) {
+        } 
+        catch (error) 
+        {
             reject(error);
         }
     });
@@ -106,13 +136,16 @@ async function parseWadToJSON(wadpath: string): Promise<any> {
  * @param data
  * @param outPath
  */
-async function writeWadJsonToDisk(
+async function writeWadJsonToDisk
+(
     outPath: string,
     data: object
-): Promise<string> {
+): Promise<string> 
+{
     return new Promise((resolve, reject) => {
         Fs.writeJson(outPath, data, (error) => {
-            if (error) {
+            if (error) 
+            {
                 reject(error);
             }
             resolve(outPath);
@@ -120,15 +153,22 @@ async function writeWadJsonToDisk(
     });
 }
 
-function main(args: any):void {
+function main(args: any):void
+{
 
-    const { WAD_PATH: wadPath, JSON_PATH: outputPath, ERROR_THRESHOLD: errorThreshold = 50 } = args
+    const { 
+        WAD_PATH:           wadPath, 
+        JSON_PATH:          outputPath, 
+        ERROR_THRESHOLD:    errorThreshold = 50 
+    } = args
 
-    if (!wadPath) {
+    if (!wadPath)
+    {
         throw new Error('WAD_PATH is missing from environment. See README.md for usage instructions')
     }
 
-    if (!outputPath) {
+    if (!outputPath)
+    {
         throw new Error('JSON_PATH is missing from environment See README.md for usage instructions')
     }
 
